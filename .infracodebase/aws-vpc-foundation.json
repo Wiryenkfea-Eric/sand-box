@@ -1,0 +1,222 @@
+{
+  "nodes": [
+    {
+      "id": "vpc",
+      "label": "VPC",
+      "subtitle": "infracode-sandbox-vpc",
+      "icon": "/icons/aws/network/vpc.png"
+    },
+    {
+      "id": "igw",
+      "label": "Internet Gateway",
+      "subtitle": "infracode-sandbox-igw",
+      "icon": "/icons/aws/general/internet-gateway.png"
+    },
+    {
+      "id": "az1",
+      "label": "Availability Zone 1",
+      "subtitle": "us-west-2a",
+      "icon": "/icons/aws/network/route-53-hosted-zone.png"
+    },
+    {
+      "id": "az2",
+      "label": "Availability Zone 2",
+      "subtitle": "us-west-2b",
+      "icon": "/icons/aws/network/route-53-hosted-zone.png"
+    },
+    {
+      "id": "public-subnet-1",
+      "label": "Public Subnet",
+      "subtitle": "10.0.16.0/20",
+      "icon": "/icons/aws/network/public-subnet.png"
+    },
+    {
+      "id": "public-subnet-2",
+      "label": "Public Subnet",
+      "subtitle": "10.0.32.0/20",
+      "icon": "/icons/aws/network/public-subnet.png"
+    },
+    {
+      "id": "private-subnet-1",
+      "label": "Private Subnet",
+      "subtitle": "10.0.48.0/20",
+      "icon": "/icons/aws/network/private-subnet.png"
+    },
+    {
+      "id": "private-subnet-2",
+      "label": "Private Subnet",
+      "subtitle": "10.0.64.0/20",
+      "icon": "/icons/aws/network/private-subnet.png"
+    },
+    {
+      "id": "nat-gateway",
+      "label": "NAT Gateway",
+      "subtitle": "infracode-sandbox-nat-gw-1",
+      "icon": "/icons/aws/network/nat-gateway.png"
+    },
+    {
+      "id": "public-rt",
+      "label": "Public Route Table",
+      "subtitle": "Routes to IGW",
+      "icon": "/icons/aws/network/route-table.png"
+    },
+    {
+      "id": "private-rt-1",
+      "label": "Private Route Table 1",
+      "subtitle": "Routes to NAT GW",
+      "icon": "/icons/aws/network/route-table.png"
+    },
+    {
+      "id": "private-rt-2",
+      "label": "Private Route Table 2",
+      "subtitle": "Routes to NAT GW",
+      "icon": "/icons/aws/network/route-table.png"
+    },
+    {
+      "id": "web-sg",
+      "label": "Web Security Group",
+      "subtitle": "HTTP/HTTPS from Internet",
+      "icon": "/icons/aws/security/security-hub.png"
+    },
+    {
+      "id": "app-sg",
+      "label": "App Security Group",
+      "subtitle": "App ports from Web tier",
+      "icon": "/icons/aws/security/security-hub.png"
+    },
+    {
+      "id": "db-sg",
+      "label": "Database Security Group",
+      "subtitle": "DB ports from App tier",
+      "icon": "/icons/aws/security/security-hub.png"
+    },
+    {
+      "id": "mgmt-sg",
+      "label": "Management Security Group",
+      "subtitle": "SSH/Admin access",
+      "icon": "/icons/aws/security/security-hub.png"
+    }
+  ],
+  "edges": [
+    {
+      "id": "vpc-contains-az1",
+      "source": "vpc",
+      "target": "az1",
+      "label": "contains"
+    },
+    {
+      "id": "vpc-contains-az2",
+      "source": "vpc",
+      "target": "az2",
+      "label": "contains"
+    },
+    {
+      "id": "az1-contains-public-1",
+      "source": "az1",
+      "target": "public-subnet-1",
+      "label": "contains"
+    },
+    {
+      "id": "az1-contains-private-1",
+      "source": "az1",
+      "target": "private-subnet-1",
+      "label": "contains"
+    },
+    {
+      "id": "az2-contains-public-2",
+      "source": "az2",
+      "target": "public-subnet-2",
+      "label": "contains"
+    },
+    {
+      "id": "az2-contains-private-2",
+      "source": "az2",
+      "target": "private-subnet-2",
+      "label": "contains"
+    },
+    {
+      "id": "igw-to-vpc",
+      "source": "igw",
+      "target": "vpc",
+      "label": "attached to"
+    },
+    {
+      "id": "nat-in-public-1",
+      "source": "public-subnet-1",
+      "target": "nat-gateway",
+      "label": "hosts"
+    },
+    {
+      "id": "public-rt-to-igw",
+      "source": "public-rt",
+      "target": "igw",
+      "label": "routes to"
+    },
+    {
+      "id": "private-rt-1-to-nat",
+      "source": "private-rt-1",
+      "target": "nat-gateway",
+      "label": "routes to"
+    },
+    {
+      "id": "private-rt-2-to-nat",
+      "source": "private-rt-2",
+      "target": "nat-gateway",
+      "label": "routes to"
+    },
+    {
+      "id": "public-rt-assoc-1",
+      "source": "public-rt",
+      "target": "public-subnet-1",
+      "label": "associated with"
+    },
+    {
+      "id": "public-rt-assoc-2",
+      "source": "public-rt",
+      "target": "public-subnet-2",
+      "label": "associated with"
+    },
+    {
+      "id": "private-rt-1-assoc",
+      "source": "private-rt-1",
+      "target": "private-subnet-1",
+      "label": "associated with"
+    },
+    {
+      "id": "private-rt-2-assoc",
+      "source": "private-rt-2",
+      "target": "private-subnet-2",
+      "label": "associated with"
+    },
+    {
+      "id": "web-sg-protects-public",
+      "source": "web-sg",
+      "target": "public-subnet-1",
+      "label": "protects resources in"
+    },
+    {
+      "id": "app-sg-allows-web",
+      "source": "web-sg",
+      "target": "app-sg",
+      "label": "allows traffic to"
+    },
+    {
+      "id": "app-sg-protects-private",
+      "source": "app-sg",
+      "target": "private-subnet-1",
+      "label": "protects resources in"
+    },
+    {
+      "id": "db-sg-allows-app",
+      "source": "app-sg",
+      "target": "db-sg",
+      "label": "allows traffic to"
+    },
+    {
+      "id": "mgmt-sg-admin-access",
+      "source": "mgmt-sg",
+      "target": "vpc",
+      "label": "admin access to"
+    }
+  ]
+}

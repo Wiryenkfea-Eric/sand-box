@@ -1,0 +1,34 @@
+# Example Terraform variables file
+# Copy to terraform.tfvars and customize for your environment
+# IMPORTANT: terraform.tfvars is ignored by git to protect sensitive data
+
+# AWS Region - Choose based on your requirements
+# Consider latency, compliance, and available services
+aws_region = "us-west-2"
+
+# Project Configuration
+project_name = "infracode-sandbox"  # Change to your project name
+environment  = "sandbox"            # sandbox, dev, staging, prod
+
+# Network Configuration
+vpc_cidr = "10.0.0.0/16"           # Adjust if you have network conflicts
+
+# Feature Toggles for Cost Management
+enable_nat_gateway   = true         # Set false to save ~$45/month (breaks private subnet internet)
+single_nat_gateway   = true         # Use one NAT instead of two to save costs
+enable_vpn_gateway   = false        # Enable only if you need site-to-site VPN
+enable_dns_hostnames = true         # Required for many AWS services (RDS, EKS, etc.)
+enable_dns_support   = true         # Always recommended
+
+# Security Configuration
+map_public_ip_on_launch = false     # Security best practice - explicit public IP assignment
+
+# Example cost-optimized configuration for learning:
+# enable_nat_gateway   = false   # Saves ~$45/month but no internet for private subnets
+# single_nat_gateway   = true    # If NAT enabled, use single gateway to save costs
+# enable_vpn_gateway   = false   # Saves ~$36/month unless you need VPN connectivity
+
+# Example production configuration:
+# enable_nat_gateway   = true    # Required for private subnet internet access
+# single_nat_gateway   = false   # High availability - one NAT per AZ
+# enable_vpn_gateway   = true    # If site-to-site connectivity required

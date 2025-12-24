@@ -16,7 +16,7 @@ This setup creates a production-ready VPC foundation with:
 - **Least-Privilege Security Groups** for web, app, database, and management tiers
 
 
-##  Design
+##  Diagram
 
 <img width="648" height="816" alt="Screenshot 2025-12-24 171208" src="https://github.com/user-attachments/assets/b3ca4ac9-0fad-433a-88e8-85dd55675b66" />
 

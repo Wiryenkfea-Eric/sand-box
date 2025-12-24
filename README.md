@@ -2,7 +2,7 @@
 
 A secure, cost-aware AWS VPC foundation built with Terraform following InfraCodeBase principles. Perfect for learning, testing, and iterating on AWS infrastructure.
 
-## 🏗️ Architecture Overview
+## Architecture Overview
 
 This setup creates a production-ready VPC foundation with:
 
@@ -15,7 +15,7 @@ This setup creates a production-ready VPC foundation with:
 - **Properly Segmented Route Tables** for network security
 - **Least-Privilege Security Groups** for web, app, database, and management tiers
 
-## 📊 Network Design
+## Network Design
 
 | Component | CIDR Block | Purpose |
 |-----------|------------|---------|
@@ -25,7 +25,7 @@ This setup creates a production-ready VPC foundation with:
 | Private Subnet 1 | 10.0.48.0/20 | Internal resources AZ1 (4,094 IPs) |
 | Private Subnet 2 | 10.0.64.0/20 | Internal resources AZ2 (4,094 IPs) |
 
-## 🛡️ Security Features
+## Security Features
 
 ### Security Groups (Least Privilege)
 - **Web Tier**: HTTP/HTTPS from internet, SSH from VPC
@@ -39,7 +39,7 @@ This setup creates a production-ready VPC foundation with:
 - NAT Gateway for secure outbound internet from private subnets
 - Separate route tables per tier
 
-## 💰 Cost Optimization
+## Cost Optimization
 
 ### Current Configuration (Sandbox Optimized)
 - **Single NAT Gateway** instead of one per AZ (~$22.5/month savings)
@@ -53,7 +53,7 @@ enable_nat_gateway = false  # Save ~$45/month (breaks private subnet internet)
 enable_vpn_gateway = false  # Save ~$36/month (default)
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 1. AWS credentials configured in workspace secrets:
@@ -88,7 +88,7 @@ aws ec2 describe-subnets --filters "Name=tag:Project,Values=infracode-sandbox"
 aws ec2 describe-nat-gateways --filter "Name=tag:Name,Values=infracode-sandbox-*"
 ```
 
-## 📁 File Structure
+## File Structure
 
 ```
 ├── main.tf                    # Provider configuration and locals
@@ -102,7 +102,7 @@ aws ec2 describe-nat-gateways --filter "Name=tag:Name,Values=infracode-sandbox-*
 └── README.md                  # This documentation
 ```
 
-## 🔧 Customization
+## Customization
 
 ### Change Region
 ```hcl
@@ -124,7 +124,7 @@ single_nat_gateway = false  # High availability - one NAT per AZ
 enable_vpn_gateway = true   # If site-to-site connectivity needed
 ```
 
-## 🛡️ Security Best Practices Implemented
+## Security Best Practices Implemented
 
 - ✅ Default security group locked down
 - ✅ Least-privilege security group rules
@@ -134,7 +134,7 @@ enable_vpn_gateway = true   # If site-to-site connectivity needed
 - ✅ Proper resource tagging for governance
 - ✅ Secrets excluded from git (.gitignore)
 
-## 🔍 Next Steps
+## Next Steps
 
 After deploying this foundation, you can:
 
@@ -144,7 +144,7 @@ After deploying this foundation, you can:
 4. **Monitoring**: Implement CloudWatch, VPC Flow Logs
 5. **Security**: Add WAF, GuardDuty, Security Hub
 
-## 🧹 Cleanup
+## Cleanup
 
 ```bash
 # Destroy all resources (be careful!)
@@ -154,7 +154,7 @@ terraform destroy
 terraform destroy -target=aws_nat_gateway.main
 ```
 
-## 📚 Resources
+## Resources
 
 - [AWS VPC Documentation](https://docs.aws.amazon.com/vpc/)
 - [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/)
@@ -163,4 +163,4 @@ terraform destroy -target=aws_nat_gateway.main
 
 ---
 
-**Built with ❤️ using InfraCodeBase principles for secure, maintainable infrastructure**
+**Built with InfraCodeBase for secure, maintainable infrastructure**
